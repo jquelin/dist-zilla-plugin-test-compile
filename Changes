@@ -1,6 +1,9 @@
 Revision history for Dist::Zilla::Plugin::CompileTests
 
-0.1.0 
+0.1.1 Thu Aug  6 15:43:34 2009
+ - fix manifest
+
+0.1.0 Thu Aug  6 15:34:26 2009
  - original release
  - basic compilation tests
 
