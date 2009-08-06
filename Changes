@@ -1,0 +1,6 @@
+Revision history for Dist::Zilla::Plugin::CompileTests
+
+0.1.0 
+ - original release
+ - basic compilation tests
+
