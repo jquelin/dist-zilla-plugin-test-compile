@@ -3,10 +3,19 @@ package Dist::Zilla::Plugin::CompileTests;
 
 use Moose;
 extends 'Dist::Zilla::Plugin::InlineFiles';
+with    'Dist::Zilla::Role::FixedPrereqs';
+
+sub prereq { return { 'File::Find::Rule' => 0 }; }
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
+
+=begin Pod::Coverage
+
+prereq
+
+=end Pod::Coverage
 
 
 =head1 SYNOPSIS
