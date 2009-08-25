@@ -1,3 +1,6 @@
+use strict;
+use warnings;
+
 package Dist::Zilla::Plugin::CompileTests;
 # ABSTRACT: common tests to check syntax of your modules
 
