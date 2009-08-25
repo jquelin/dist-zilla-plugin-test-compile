@@ -54,7 +54,8 @@ use File::Find;
 my @modules;
 find(
   sub {
-    return if $File::Find::name !~ /\.pm\z/; push @modules, $File::Find::name;
+    return if $File::Find::name !~ /\.pm\z/;
+    push @modules, $File::Find::name;
   },
   'lib',
 );
