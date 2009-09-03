@@ -68,9 +68,10 @@ plan tests => scalar(@modules) + scalar(@scripts);
     
 foreach my $file ( @modules ) {
     my $module = $file;
-    $module =~ s/[\/\\]/::/g;
+    $module =~ s{^lib/}{};
+    $module =~ s{[/\\]}{::}g;
     $module =~ s/\.pm$//;
-    is( qx{ $^X -M$module -e "print '$module ok'" }, "$module ok", "$module loaded ok" );
+    is( qx{ $^X -Ilib -M$module -e "print '$module ok'" }, "$module ok", "$module loaded ok" );
 }
     
 SKIP: {
