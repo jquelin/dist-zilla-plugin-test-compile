@@ -79,6 +79,33 @@ match is done against the module name (C<Foo::Bar>), not the file path
 =back
 
 
+
+=head1 SEE ALSO
+
+You can also look for information on this module at:
+
+=over 4
+
+=item * AnnoCPAN: Annotated CPAN documentation
+
+L<http://annocpan.org/dist/Dist-Zilla-Plugin-CompileTests>
+
+=item * CPAN Ratings
+
+L<http://cpanratings.perl.org/d/Dist-Zilla-Plugin-CompileTests>
+
+=item * Open bugs
+
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Dist-Zilla-Plugin-CompileTests>
+
+=item * Git repository
+
+L<http://github.com/jquelin/dist-zilla-plugin-compiletests.git>.
+
+=back
+
+
+
 =cut
 
 __DATA__
