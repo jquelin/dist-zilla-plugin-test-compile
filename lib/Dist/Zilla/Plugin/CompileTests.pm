@@ -6,6 +6,33 @@ package Dist::Zilla::Plugin::CompileTests;
 
 use Moose;
 extends 'Dist::Zilla::Plugin::InlineFiles';
+with    'Dist::Zilla::Role::FileMunger';
+
+
+# -- attributes
+
+# skiplist - a regex
+has skip => ( is=>'ro', predicate=>'has_skip' );
+
+
+# -- public methods
+
+# called by the filemunger role
+sub munge_file {
+    my ($self, $file) = @_;
+
+    return unless $file->name eq 't/00-compile.t';
+
+    my $replacement = ( $self->has_skip && $self->skip )
+        ? sprintf( 'next if $module =~ /%s/;', $self->skip )
+        : '# nothing to skip';
+
+    # replace the string in the file
+    my $content = $file->content;
+    $content =~ s/COMPILETESTS_SKIP/$replacement/;
+    $file->content( $content );
+}
+
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
@@ -13,7 +40,7 @@ __PACKAGE__->meta->make_immutable;
 
 =begin Pod::Coverage
 
-prereq
+munge_file
 
 =end Pod::Coverage
 
@@ -71,6 +98,7 @@ foreach my $file ( @modules ) {
     $module =~ s{^lib/}{};
     $module =~ s{[/\\]}{::}g;
     $module =~ s/\.pm$//;
+    COMPILETESTS_SKIP;
     is( qx{ $^X -Ilib -M$module -e "print '$module ok'" }, "$module ok", "$module loaded ok" );
 }
     
