@@ -1,0 +1,18 @@
+# avoid version control files.
+.git
+
+# avoid temp and backup files.
+*~
+*#
+*.bak
+*.old
+*.rej
+*.swp
+*.tmp
+
+# avoid compiled gettext files
+*.mo
+
+# avoid archives of this distribution
+Dist-Zilla-Plugin-CompileTests*
+
