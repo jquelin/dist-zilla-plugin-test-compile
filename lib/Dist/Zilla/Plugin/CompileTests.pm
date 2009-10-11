@@ -50,7 +50,7 @@ munge_file
 In your dist.ini:
 
     [CompileTests]
-
+    skip = Test$
 
 =head1 DESCRIPTION
 
@@ -67,7 +67,17 @@ This test will find all modules and scripts in your dist, and try to
 compile them one by one. This means it's a bit slower than loading them
 all at once, but it will catch more errors.
 
-This plugin does not accept any option.
+
+This plugin accepts the following options:
+
+=over 4
+
+=item * skip: a regex to skip compile test for modules matching it. The
+match is done against the module name (C<Foo::Bar>), not the file path
+(F<lib/Foo/Bar.pm>).
+
+=back
+
 
 =cut
 
