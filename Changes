@@ -2,6 +2,9 @@ Revision history for Dist::Zilla::Plugin::CompileTests
 
 {{$NEXT}}
 
+1.092840 Sun Oct 11 19:12:32 2009
+ - support for skip parameter
+
 1.092460 Thu Sep  3 17:26:23 2009
  - using less magical load test (as kentnl reported)
 
