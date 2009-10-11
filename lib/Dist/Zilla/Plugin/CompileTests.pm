@@ -61,11 +61,11 @@ the following files:
 
 =item * t/00-compile.t - a standard test to check syntax of bundled modules
 
-=back
-
 This test will find all modules and scripts in your dist, and try to
 compile them one by one. This means it's a bit slower than loading them
 all at once, but it will catch more errors.
+
+=back
 
 
 This plugin accepts the following options:
@@ -103,7 +103,6 @@ L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Dist-Zilla-Plugin-CompileTests>
 L<http://github.com/jquelin/dist-zilla-plugin-compiletests.git>.
 
 =back
-
 
 
 =cut
