@@ -2,6 +2,9 @@ Revision history for Dist::Zilla::Plugin::CompileTests
 
 {{$NEXT}}
 
+1.092870 Wed Oct 14 09:10:00 2009
+ - fix: skip did not update test count
+
 1.092840 Sun Oct 11 19:12:32 2009
  - support for skip parameter
 
