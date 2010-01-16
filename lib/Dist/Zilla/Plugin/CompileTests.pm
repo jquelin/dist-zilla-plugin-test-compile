@@ -38,11 +38,8 @@ no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
 
-=begin Pod::Coverage
-
-munge_file
-
-=end Pod::Coverage
+=for Pod::Coverage::TrustPod
+    munge_file
 
 
 =head1 SYNOPSIS
