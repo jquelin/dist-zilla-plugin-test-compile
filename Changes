@@ -2,6 +2,10 @@ Revision history for Dist::Zilla::Plugin::CompileTests
 
 {{$NEXT}}
 
+1.100160  2010-01-16 14:43:14 Europe/Paris
+ - requiring perl 5.8.x
+ - faking $ENV{HOME} for cpantesters
+
 1.092870 Wed Oct 14 09:10:00 2009
  - fix: skip did not update test count
 
