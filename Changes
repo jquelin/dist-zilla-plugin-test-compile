@@ -2,6 +2,9 @@ Revision history for Dist::Zilla::Plugin::CompileTests
 
 {{$NEXT}}
 
+1.100220  2010-01-22 16:26:16 Europe/Paris
+ - new param fake_home to control $ENV{HOME} faking
+
 1.100160  2010-01-16 14:43:14 Europe/Paris
  - requiring perl 5.8.x
  - faking $ENV{HOME} for cpantesters
