@@ -150,7 +150,7 @@ plan tests => scalar(@modules) + scalar(@scripts);
     # fake home for cpan-testers
     COMPILETESTS_FAKE_HOME local $ENV{HOME} = tempdir( CLEANUP => 1 );
 
-    is( qx{ $^X -Ilib -M$_ -e "print '$_ ok'" }, "$_ ok", "$_ loaded ok" )
+    is( qx{ $^X -Ilib -e "use $_; print '$_ ok'" }, "$_ ok", "$_ loaded ok" )
         for sort @modules;
 
     SKIP: {
