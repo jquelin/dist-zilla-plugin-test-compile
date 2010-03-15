@@ -2,6 +2,9 @@ Revision history for Dist::Zilla::Plugin::CompileTests
 
 {{$NEXT}}
 
+1.100740  2010-03-15 18:29:52 Europe/Paris
+ - allow PERL5OPT to get a chance to be respected (marcel gruenauer)
+
 1.100220  2010-01-22 16:26:16 Europe/Paris
  - new param fake_home to control $ENV{HOME} faking
 
