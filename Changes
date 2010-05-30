@@ -2,6 +2,9 @@ Revision history for Dist::Zilla::Plugin::CompileTests
 
 {{$NEXT}}
 
+1.101500  2010-05-30 17:55:12 Europe/Paris
+ - fix #57974: test::script 1.05 changed its interface
+
 1.100740  2010-03-15 18:29:52 Europe/Paris
  - allow PERL5OPT to get a chance to be respected (marcel gruenauer)
 
