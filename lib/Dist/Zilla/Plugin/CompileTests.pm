@@ -151,7 +151,7 @@ $plan ? (plan tests => $plan) : (plan skip_all => "no tests to run");
     # fake home for cpan-testers
     COMPILETESTS_FAKE_HOME local $ENV{HOME} = tempdir( CLEANUP => 1 );
 
-    like( qx{ $^X -Ilib -e "use $_; print '$_ ok'" }, qr/^\s*$_ ok/s, "$_ loaded ok" )
+    like( qx{ $^X -Ilib -e "require $_; print '$_ ok'" }, qr/^\s*$_ ok/s, "$_ loaded ok" )
         for sort @modules;
 
     SKIP: {
