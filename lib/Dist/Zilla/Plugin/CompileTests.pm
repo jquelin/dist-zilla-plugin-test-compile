@@ -144,7 +144,8 @@ find(
 
 my @scripts = glob "bin/*";
 
-plan tests => scalar(@modules) + scalar(@scripts);
+my $plan = scalar(@modules) + scalar(@scripts);
+$plan ? (plan tests => $plan) : (plan skip_all => "no tests to run");
 
 {
     # fake home for cpan-testers
