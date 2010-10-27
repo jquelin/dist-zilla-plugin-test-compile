@@ -2,6 +2,10 @@ Revision history for Dist::Zilla::Plugin::CompileTests
 
 {{$NEXT}}
 
+1.103000  2010-10-27 09:16:26 Europe/Paris
+ - new option no_display to skip tests on non win32 systems when
+   $ENV{DISPLAY} is not set (ahmad zawawi)
+
 1.101800  2010-06-29 18:42:20 Europe/Paris
  - skip all if no test are to be run (jesse luehrs)
  - require module instead of use, to test only compilation (jesse luehrs)
