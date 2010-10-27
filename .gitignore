@@ -10,6 +10,9 @@
 *.swp
 *.tmp
 
+# avoid build files
+.build
+
 # avoid compiled gettext files
 *.mo
 
