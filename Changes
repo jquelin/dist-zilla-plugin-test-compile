@@ -1,10 +1,12 @@
 Revision history for Dist::Zilla::Plugin::CompileTests
 
 {{$NEXT}}
+ - no_display is now called needs_display and it reuses 
+   Test::NeedsDisplay (ahmad m. zawawi)
 
 1.103000  2010-10-27 09:16:26 Europe/Paris
  - new option no_display to skip tests on non win32 systems when
-   $ENV{DISPLAY} is not set (ahmad zawawi)
+   $ENV{DISPLAY} is not set (ahmad m. zawawi)
 
 1.101800  2010-06-29 18:42:20 Europe/Paris
  - skip all if no test are to be run (jesse luehrs)

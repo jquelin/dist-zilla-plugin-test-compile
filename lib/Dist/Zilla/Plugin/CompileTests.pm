@@ -12,9 +12,9 @@ with    'Dist::Zilla::Role::FileMunger';
 
 # -- attributes
 
-has fake_home => ( is=>'ro', predicate=>'has_fake_home' );
-has skip      => ( is=>'ro', predicate=>'has_skip' ); # skiplist - a regex
-has no_display => ( is=>'ro', predicate=>'has_no_display' );
+has fake_home     => ( is=>'ro', predicate=>'has_fake_home' );
+has skip          => ( is=>'ro', predicate=>'has_skip' ); # skiplist - a regex
+has needs_display => ( is=>'ro', predicate=>'has_needs_display' );
 
 # -- public methods
 
@@ -32,15 +32,16 @@ sub munge_file {
         ? ''
         : '# no fake requested ##';
 
-    my $no_display = ( $self->has_no_display && $self->no_display )
-        ? '1'
-        : '0';
+    my $needs_display =
+        $self->has_needs_display && $self->needs_display
+        ? q{use Test::NeedsDisplay ':skip_all'}
+        : '';
 
     # replace strings in the file
     my $content = $file->content;
     $content =~ s/COMPILETESTS_SKIP/$skip/;
     $content =~ s/COMPILETESTS_FAKE_HOME/$home/;
-    $content =~ s/COMPILETESTS_NO_DISPLAY/$no_display/;
+    $content =~ s/COMPILETESTS_NEEDS_DISPLAY/$needs_display/;
     $file->content( $content );
 }
 
@@ -60,7 +61,7 @@ In your dist.ini:
     [CompileTests]
     skip      = Test$
     fake_home = 1
-    no_display = 1
+    needs_display = 1
 
 
 =head1 DESCRIPTION
@@ -92,7 +93,7 @@ This may be needed if your module unilateraly creates stuff in homedir:
 indeed, some cpantesters will smoke test your dist with a read-only home
 directory. Default to false.
 
-=item * no_display: a boolean to indicate whether to skip the compile test
+=item * needs_display: a boolean to indicate whether to skip the compile test
 on non-win32 systems when $ENV{DISPLAY} is not set. Default to false.
 
 =back
@@ -100,6 +101,8 @@ on non-win32 systems when $ENV{DISPLAY} is not set. Default to false.
 
 
 =head1 SEE ALSO
+
+L<Test::NeedsDisplay>
 
 You can also look for information on this module at:
 
@@ -133,14 +136,8 @@ ___[ t/00-compile.t ]___
 use strict;
 use warnings;
 
+COMPILETESTS_NEEDS_DISPLAY;
 use Test::More;
-
-BEGIN {
-    if ( COMPILETESTS_NO_DISPLAY and not $ENV{DISPLAY} and not $^O eq 'MSWin32' ) {
-        plan skip_all => 'Needs DISPLAY';
-        exit 0;
-    }
-}
 
 use File::Find;
 use File::Temp qw{ tempdir };
