@@ -1,6 +1,8 @@
 Revision history for Dist::Zilla::Plugin::CompileTests
 
 {{$NEXT}}
+
+1.103010  2010-10-28 17:26:19 Europe/Paris
  - no_display is now called needs_display and it reuses 
    Test::NeedsDisplay (ahmad m. zawawi)
 
