@@ -146,7 +146,7 @@ use warnings;
 
 use Test::More;
 
-COMPILETESTS_NEEDS_DISPLAY;
+COMPILETESTS_NEEDS_DISPLAY
 
 use File::Find;
 use File::Temp qw{ tempdir };
