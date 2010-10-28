@@ -1,6 +1,8 @@
 Revision history for Dist::Zilla::Plugin::CompileTests
 
 {{$NEXT}}
+ - Removed reuse of Test::NeedsDisplay. It fails when DISPLAY is not
+   set! (ahmad m. zawawi)
 
 1.103010  2010-10-28 17:26:19 Europe/Paris
  - no_display is now called needs_display and it reuses 
