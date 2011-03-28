@@ -1,8 +1,19 @@
+#
+# This file is part of Dist-Zilla-Plugin-CompileTests
+#
+# This software is copyright (c) 2009 by Jerome Quelin.
+#
+# This is free software; you can redistribute it and/or modify it under
+# the same terms as the Perl 5 programming language system itself.
+#
 use 5.008;
 use strict;
 use warnings;
 
 package Dist::Zilla::Plugin::CompileTests;
+BEGIN {
+  $Dist::Zilla::Plugin::CompileTests::VERSION = '1.110870';
+}
 # ABSTRACT: common tests to check syntax of your modules
 
 use Moose;
@@ -58,9 +69,18 @@ no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
 
-=for Pod::Coverage::TrustPod
-    munge_file
 
+
+
+=pod
+
+=head1 NAME
+
+Dist::Zilla::Plugin::CompileTests - common tests to check syntax of your modules
+
+=head1 VERSION
+
+version 1.110870
 
 =head1 SYNOPSIS
 
@@ -70,7 +90,6 @@ In your dist.ini:
     skip      = Test$
     fake_home = 1
     needs_display = 1
-
 
 =head1 DESCRIPTION
 
@@ -86,7 +105,6 @@ compile them one by one. This means it's a bit slower than loading them
 all at once, but it will catch more errors.
 
 =back
-
 
 This plugin accepts the following options:
 
@@ -106,7 +124,7 @@ on non-win32 systems when $ENV{DISPLAY} is not set. Default to false.
 
 =back
 
-
+=for Pod::Coverage::TrustPod munge_file
 
 =head1 SEE ALSO
 
@@ -134,8 +152,19 @@ L<http://github.com/jquelin/dist-zilla-plugin-compiletests.git>.
 
 =back
 
+=head1 AUTHOR
+
+Jerome Quelin
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2009 by Jerome Quelin.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
 
 __DATA__
 ___[ t/00-compile.t ]___

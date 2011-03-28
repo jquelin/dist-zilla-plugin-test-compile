@@ -1,7 +1,5 @@
 Revision history for Dist::Zilla::Plugin::CompileTests
 
-{{$NEXT}}
-
 1.110870  2011-03-28 12:44:54 Europe/Paris
  - allow regex skip of script files (jesse luehrs)
 
