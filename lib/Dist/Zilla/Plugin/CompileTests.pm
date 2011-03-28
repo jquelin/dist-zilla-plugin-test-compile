@@ -47,7 +47,7 @@ CODE
 
     # replace strings in the file
     my $content = $file->content;
-    $content =~ s/COMPILETESTS_SKIP/$skip/;
+    $content =~ s/COMPILETESTS_SKIP/$skip/g;
     $content =~ s/COMPILETESTS_FAKE_HOME/$home/;
     $content =~ s/COMPILETESTS_NEEDS_DISPLAY/$needs_display/;
     $file->content( $content );
@@ -165,7 +165,16 @@ find(
   'lib',
 );
 
-my @scripts = glob "bin/*";
+my @scripts;
+find(
+  sub {
+    return unless -f;
+    my $found = $File::Find::name;
+    COMPILETESTS_SKIP
+    push @scripts, $found;
+  },
+  'bin',
+);
 
 my $plan = scalar(@modules) + scalar(@scripts);
 $plan ? (plan tests => $plan) : (plan skip_all => "no tests to run");
