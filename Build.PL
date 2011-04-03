@@ -20,7 +20,7 @@ my %module_build_args = (
     'Jerome Quelin'
   ],
   'dist_name' => 'Dist-Zilla-Plugin-CompileTests',
-  'dist_version' => '1.110870',
+  'dist_version' => '1.110930',
   'license' => 'perl',
   'module_name' => 'Dist::Zilla::Plugin::CompileTests',
   'recommends' => {},

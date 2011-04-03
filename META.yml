@@ -19,7 +19,7 @@ name: Dist-Zilla-Plugin-CompileTests
 provides:
   Dist::Zilla::Plugin::CompileTests:
     file: lib/Dist/Zilla/Plugin/CompileTests.pm
-    version: 1.110870
+    version: 1.110930
 requires:
   Dist::Zilla::Plugin::InlineFiles: 0
   Dist::Zilla::Role::FileMunger: 0
@@ -30,7 +30,7 @@ resources:
   homepage: http://search.cpan.org/dist/Dist-Zilla-Plugin-CompileTests/
   repository: git://github.com/jquelin/dist-zilla-plugin-compiletests.git
   x_MailingList: http://www.listbox.com/subscribe/?list_id=139292
-version: 1.110870
+version: 1.110930
 x_Dist_Zilla:
   plugins:
     -

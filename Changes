@@ -1,5 +1,8 @@
 Revision history for Dist::Zilla::Plugin::CompileTests
 
+1.110930  2011-04-03 11:19:08 Europe/Paris
+ - fix rt#67183 - do not fail if no bin directory exists
+
 1.110870  2011-03-28 12:44:54 Europe/Paris
  - allow regex skip of script files (jesse luehrs)
 

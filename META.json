@@ -43,7 +43,7 @@
    "provides" : {
       "Dist::Zilla::Plugin::CompileTests" : {
          "file" : "lib/Dist/Zilla/Plugin/CompileTests.pm",
-         "version" : "1.110870"
+         "version" : "1.110930"
       }
    },
    "release_status" : "stable",
@@ -60,7 +60,7 @@
       },
       "x_MailingList" : "http://www.listbox.com/subscribe/?list_id=139292"
    },
-   "version" : "1.110870",
+   "version" : "1.110930",
    "x_Dist_Zilla" : {
       "plugins" : [
          {
