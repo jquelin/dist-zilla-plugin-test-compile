@@ -1,5 +1,8 @@
 Revision history for Dist::Zilla::Plugin::CompileTests
 
+1.112380  2011-08-26 13:28:44 Europe/Paris
+ - skip non-perl scripts in bin directory (harley pig)
+
 1.110930  2011-04-03 11:19:08 Europe/Paris
  - fix rt#67183 - do not fail if no bin directory exists
 

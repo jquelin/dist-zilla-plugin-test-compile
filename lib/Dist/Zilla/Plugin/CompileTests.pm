@@ -11,8 +11,8 @@ use strict;
 use warnings;
 
 package Dist::Zilla::Plugin::CompileTests;
-BEGIN {
-  $Dist::Zilla::Plugin::CompileTests::VERSION = '1.110930';
+{
+  $Dist::Zilla::Plugin::CompileTests::VERSION = '1.112380';
 }
 # ABSTRACT: common tests to check syntax of your modules
 
@@ -80,7 +80,7 @@ Dist::Zilla::Plugin::CompileTests - common tests to check syntax of your modules
 
 =head1 VERSION
 
-version 1.110930
+version 1.112380
 
 =head1 SYNOPSIS
 
@@ -201,6 +201,12 @@ if ( -d 'bin' ) {
         return unless -f;
         my $found = $File::Find::name;
         COMPILETESTS_SKIP
+        open my $FH, '<', $_ or do {
+          note( "Unable to open $found in ( $! ), skipping" );
+          return;
+        };
+        my $shebang = <$FH>;
+        return unless $shebang =~ /^#!.*?\bperl\b\s*$/;
         push @scripts, $found;
       },
       'bin',
