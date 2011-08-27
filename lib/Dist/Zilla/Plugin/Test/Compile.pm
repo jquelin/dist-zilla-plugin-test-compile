@@ -135,7 +135,7 @@ L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Dist-Zilla-Plugin-Test-Compile>
 
 =item * Git repository
 
-L<http://github.com/jquelin/dist-zilla-plugin-compiletests.git>.
+L<http://github.com/jquelin/dist-zilla-plugin-test-compile.git>.
 
 =back
 
