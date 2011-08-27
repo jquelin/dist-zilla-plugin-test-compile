@@ -17,5 +17,5 @@
 *.mo
 
 # avoid archives of this distribution
-Dist-Zilla-Plugin-CompileTests*
+Dist-Zilla-Plugin-Test-Compile*
 
