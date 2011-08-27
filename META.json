@@ -47,11 +47,11 @@
    "provides" : {
       "Dist::Zilla::Plugin::CompileTests" : {
          "file" : "lib/Dist/Zilla/Plugin/CompileTests.pm",
-         "version" : "1.112390"
+         "version" : "1.112391"
       },
       "Dist::Zilla::Plugin::Test::Compile" : {
          "file" : "lib/Dist/Zilla/Plugin/Test/Compile.pm",
-         "version" : "1.112390"
+         "version" : "1.112391"
       }
    },
    "release_status" : "stable",
@@ -63,12 +63,12 @@
       "homepage" : "http://search.cpan.org/dist/Dist-Zilla-Plugin-Test-Compile/",
       "repository" : {
          "type" : "git",
-         "url" : "git://github.com/jquelin/dist-zilla-plugin-compiletests.git",
-         "web" : "http://github.com/jquelin/dist-zilla-plugin-compiletests"
+         "url" : "git://github.com/jquelin/dist-zilla-plugin-test-compile.git",
+         "web" : "http://github.com/jquelin/dist-zilla-plugin-test-compile"
       },
       "x_MailingList" : "http://www.listbox.com/subscribe/?list_id=139292"
    },
-   "version" : "1.112390",
+   "version" : "1.112391",
    "x_Dist_Zilla" : {
       "plugins" : [
          {

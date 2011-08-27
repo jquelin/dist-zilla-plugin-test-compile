@@ -12,7 +12,7 @@ use warnings;
 
 package Dist::Zilla::Plugin::Test::Compile;
 {
-  $Dist::Zilla::Plugin::Test::Compile::VERSION = '1.112390';
+  $Dist::Zilla::Plugin::Test::Compile::VERSION = '1.112391';
 }
 # ABSTRACT: common tests to check syntax of your modules
 
@@ -82,7 +82,7 @@ Dist::Zilla::Plugin::Test::Compile - common tests to check syntax of your module
 
 =head1 VERSION
 
-version 1.112390
+version 1.112391
 
 =head1 SYNOPSIS
 
@@ -150,7 +150,7 @@ L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Dist-Zilla-Plugin-Test-Compile>
 
 =item * Git repository
 
-L<http://github.com/jquelin/dist-zilla-plugin-compiletests.git>.
+L<http://github.com/jquelin/dist-zilla-plugin-test-compile.git>.
 
 =back
 
