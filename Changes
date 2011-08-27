@@ -2,6 +2,11 @@ Revision history for Dist::Zilla::Plugin::CompileTests
 
 {{$NEXT}}
 
+1.112391  2011-08-27 11:50:33 Europe/Paris
+ - more aggressive deprecation in documentation
+ - minimum date before DZP::CompileTests removal: 2012-08-27
+ - github repository renamed to match new dist name
+
 1.112390  2011-08-27 11:40:32 Europe/Paris
  - renamed to Dist::Zilla::Plugin::Test::Compile. DZP::CompileTests,
    although deprecated, continues to work (fredric kent)
