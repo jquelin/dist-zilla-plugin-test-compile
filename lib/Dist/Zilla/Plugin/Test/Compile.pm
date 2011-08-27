@@ -6,9 +6,8 @@ package Dist::Zilla::Plugin::Test::Compile;
 # ABSTRACT: common tests to check syntax of your modules
 
 use Moose;
-extends 'Dist::Zilla::Plugin::InlineFiles';
-with    'Dist::Zilla::Role::FileMunger';
-
+use Data::Section -setup;
+with 'Dist::Zilla::Role::FileGatherer';
 
 # -- attributes
 
@@ -18,11 +17,9 @@ has needs_display => ( is=>'ro', predicate=>'has_needs_display' );
 
 # -- public methods
 
-# called by the filemunger role
-sub munge_file {
-    my ($self, $file) = @_;
+sub gather_files {
 
-    return unless $file->name eq 't/00-compile.t';
+    my ( $self , ) = @_;
 
     my $skip = ( $self->has_skip && $self->skip )
         ? sprintf( 'return if $found =~ /%s/;', $self->skip )
@@ -45,12 +42,19 @@ BEGIN {
 CODE
     }
 
-    # replace strings in the file
-    my $content = $file->content;
-    $content =~ s/COMPILETESTS_SKIP/$skip/g;
-    $content =~ s/COMPILETESTS_FAKE_HOME/$home/;
-    $content =~ s/COMPILETESTS_NEEDS_DISPLAY/$needs_display/;
-    $file->content( $content );
+    require Dist::Zilla::File::InMemory;
+
+    for my $file (qw( t/00-compile.t )){
+        my $content = ${$self->section_data($file)};
+        $content =~ s/COMPILETESTS_SKIP/$skip/g;
+        $content =~ s/COMPILETESTS_FAKE_HOME/$home/;
+        $content =~ s/COMPILETESTS_NEEDS_DISPLAY/$needs_display/;
+
+        $self->add_file( Dist::Zilla::File::InMemory->new(
+            name => $file,
+            content => $content,
+        ));
+    }
 }
 
 
