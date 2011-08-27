@@ -48,13 +48,15 @@ sub pmver {
     return sprintf('%-45s => %-10s%-15s%s', $module, $pmver, $wanted, "\n");
 }
 
-eval { $v .= pmver('Dist::Zilla::Plugin::InlineFiles','any version') };
-eval { $v .= pmver('Dist::Zilla::Role::FileMunger','any version') };
+eval { $v .= pmver('Data::Section','any version') };
+eval { $v .= pmver('Dist::Zilla::File::InMemory','any version') };
+eval { $v .= pmver('Dist::Zilla::Role::FileGatherer','any version') };
 eval { $v .= pmver('File::Find','any version') };
 eval { $v .= pmver('File::Temp','any version') };
 eval { $v .= pmver('Module::Build','0.3601') };
 eval { $v .= pmver('Moose','any version') };
 eval { $v .= pmver('Test::More','0.88') };
+eval { $v .= pmver('namespace::autoclean','any version') };
 eval { $v .= pmver('strict','any version') };
 eval { $v .= pmver('warnings','any version') };
 

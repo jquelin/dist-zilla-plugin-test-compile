@@ -12,7 +12,7 @@
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
       "version" : "2"
    },
-   "name" : "Dist-Zilla-Plugin-CompileTests",
+   "name" : "Dist-Zilla-Plugin-Test-Compile",
    "prereqs" : {
       "build" : {
          "requires" : {
@@ -26,9 +26,11 @@
       },
       "runtime" : {
          "requires" : {
-            "Dist::Zilla::Plugin::InlineFiles" : 0,
-            "Dist::Zilla::Role::FileMunger" : 0,
+            "Data::Section" : 0,
+            "Dist::Zilla::File::InMemory" : 0,
+            "Dist::Zilla::Role::FileGatherer" : 0,
             "Moose" : 0,
+            "namespace::autoclean" : 0,
             "perl" : "5.008",
             "strict" : 0,
             "warnings" : 0
@@ -45,16 +47,20 @@
    "provides" : {
       "Dist::Zilla::Plugin::CompileTests" : {
          "file" : "lib/Dist/Zilla/Plugin/CompileTests.pm",
-         "version" : "1.112380"
+         "version" : "1.112390"
+      },
+      "Dist::Zilla::Plugin::Test::Compile" : {
+         "file" : "lib/Dist/Zilla/Plugin/Test/Compile.pm",
+         "version" : "1.112390"
       }
    },
    "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
-         "mailto" : "bug-dist-zilla-plugin-compiletests at rt.cpan.org",
-         "web" : "http://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-CompileTests"
+         "mailto" : "bug-dist-zilla-plugin-test-compile at rt.cpan.org",
+         "web" : "http://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-Test-Compile"
       },
-      "homepage" : "http://search.cpan.org/dist/Dist-Zilla-Plugin-CompileTests/",
+      "homepage" : "http://search.cpan.org/dist/Dist-Zilla-Plugin-Test-Compile/",
       "repository" : {
          "type" : "git",
          "url" : "git://github.com/jquelin/dist-zilla-plugin-compiletests.git",
@@ -62,7 +68,7 @@
       },
       "x_MailingList" : "http://www.listbox.com/subscribe/?list_id=139292"
    },
-   "version" : "1.112380",
+   "version" : "1.112390",
    "x_Dist_Zilla" : {
       "plugins" : [
          {

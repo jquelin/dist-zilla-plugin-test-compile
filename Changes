@@ -1,5 +1,10 @@
 Revision history for Dist::Zilla::Plugin::CompileTests
 
+1.112390  2011-08-27 11:40:32 Europe/Paris
+ - renamed to Dist::Zilla::Plugin::Test::Compile. DZP::CompileTests,
+   although deprecated, continues to work (fredric kent)
+ - eliminate multiple phases work (fredric kent)
+
 1.112380  2011-08-26 13:28:44 Europe/Paris
  - skip non-perl scripts in bin directory (harley pig)
 

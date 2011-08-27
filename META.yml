@@ -15,24 +15,29 @@ license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
-name: Dist-Zilla-Plugin-CompileTests
+name: Dist-Zilla-Plugin-Test-Compile
 provides:
   Dist::Zilla::Plugin::CompileTests:
     file: lib/Dist/Zilla/Plugin/CompileTests.pm
-    version: 1.112380
+    version: 1.112390
+  Dist::Zilla::Plugin::Test::Compile:
+    file: lib/Dist/Zilla/Plugin/Test/Compile.pm
+    version: 1.112390
 requires:
-  Dist::Zilla::Plugin::InlineFiles: 0
-  Dist::Zilla::Role::FileMunger: 0
+  Data::Section: 0
+  Dist::Zilla::File::InMemory: 0
+  Dist::Zilla::Role::FileGatherer: 0
   Moose: 0
+  namespace::autoclean: 0
   perl: 5.008
   strict: 0
   warnings: 0
 resources:
-  bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-CompileTests
-  homepage: http://search.cpan.org/dist/Dist-Zilla-Plugin-CompileTests/
+  bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-Test-Compile
+  homepage: http://search.cpan.org/dist/Dist-Zilla-Plugin-Test-Compile/
   repository: git://github.com/jquelin/dist-zilla-plugin-compiletests.git
   x_MailingList: http://www.listbox.com/subscribe/?list_id=139292
-version: 1.112380
+version: 1.112390
 x_Dist_Zilla:
   plugins:
     -

@@ -19,16 +19,18 @@ my %module_build_args = (
   "dist_author" => [
     "Jerome Quelin"
   ],
-  "dist_name" => "Dist-Zilla-Plugin-CompileTests",
-  "dist_version" => "1.112380",
+  "dist_name" => "Dist-Zilla-Plugin-Test-Compile",
+  "dist_version" => "1.112390",
   "license" => "perl",
-  "module_name" => "Dist::Zilla::Plugin::CompileTests",
+  "module_name" => "Dist::Zilla::Plugin::Test::Compile",
   "recommends" => {},
   "recursive_test_files" => 1,
   "requires" => {
-    "Dist::Zilla::Plugin::InlineFiles" => 0,
-    "Dist::Zilla::Role::FileMunger" => 0,
+    "Data::Section" => 0,
+    "Dist::Zilla::File::InMemory" => 0,
+    "Dist::Zilla::Role::FileGatherer" => 0,
     "Moose" => 0,
+    "namespace::autoclean" => 0,
     "perl" => "5.008",
     "strict" => 0,
     "warnings" => 0

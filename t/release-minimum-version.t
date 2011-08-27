@@ -1,6 +1,6 @@
 #!perl
 #
-# This file is part of Dist-Zilla-Plugin-CompileTests
+# This file is part of Dist-Zilla-Plugin-Test-Compile
 #
 # This software is copyright (c) 2009 by Jerome Quelin.
 #
