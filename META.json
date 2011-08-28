@@ -38,8 +38,10 @@
       },
       "test" : {
          "requires" : {
+            "Dist::Zilla::Tester" : 0,
             "File::Find" : 0,
             "File::Temp" : 0,
+            "Path::Class" : 0,
             "Test::More" : "0.88"
          }
       }
@@ -47,11 +49,11 @@
    "provides" : {
       "Dist::Zilla::Plugin::CompileTests" : {
          "file" : "lib/Dist/Zilla/Plugin/CompileTests.pm",
-         "version" : "1.112392"
+         "version" : "1.112400"
       },
       "Dist::Zilla::Plugin::Test::Compile" : {
          "file" : "lib/Dist/Zilla/Plugin/Test/Compile.pm",
-         "version" : "1.112392"
+         "version" : "1.112400"
       }
    },
    "release_status" : "stable",
@@ -68,7 +70,7 @@
       },
       "x_MailingList" : "http://www.listbox.com/subscribe/?list_id=139292"
    },
-   "version" : "1.112392",
+   "version" : "1.112400",
    "x_Dist_Zilla" : {
       "plugins" : [
          {
@@ -89,7 +91,7 @@
          {
             "class" : "Dist::Zilla::Plugin::CompileTests",
             "name" : "@JQUELIN/CompileTests",
-            "version" : "1.110930"
+            "version" : "1.112392"
          },
          {
             "class" : "Dist::Zilla::Plugin::HasVersionTests",

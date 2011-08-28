@@ -7,9 +7,11 @@ use Module::Build 0.3601;
 
 my %module_build_args = (
   "build_requires" => {
+    "Dist::Zilla::Tester" => 0,
     "File::Find" => 0,
     "File::Temp" => 0,
     "Module::Build" => "0.3601",
+    "Path::Class" => 0,
     "Test::More" => "0.88"
   },
   "configure_requires" => {
@@ -20,7 +22,7 @@ my %module_build_args = (
     "Jerome Quelin"
   ],
   "dist_name" => "Dist-Zilla-Plugin-Test-Compile",
-  "dist_version" => "1.112392",
+  "dist_version" => "1.112400",
   "license" => "perl",
   "module_name" => "Dist::Zilla::Plugin::Test::Compile",
   "recommends" => {},

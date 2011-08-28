@@ -11,8 +11,15 @@ lib/Dist/Zilla/Plugin/CompileTests.pm
 lib/Dist/Zilla/Plugin/Test/Compile.pm
 t/00-compile.t
 t/000-report-versions-tiny.t
+t/compile-tests.t
+t/compile-tests/dist.ini
+t/compile-tests/lib/Foo.pm
 t/release-has-version.t
 t/release-kwalitee.t
 t/release-minimum-version.t
 t/release-pod-coverage.t
 t/release-pod-syntax.t
+t/test-compile.t
+t/test-compile/bin/foobar
+t/test-compile/dist.ini
+t/test-compile/lib/Foo.pm

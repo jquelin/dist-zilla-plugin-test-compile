@@ -12,7 +12,7 @@ use warnings;
 
 package Dist::Zilla::Plugin::Test::Compile;
 {
-  $Dist::Zilla::Plugin::Test::Compile::VERSION = '1.112392';
+  $Dist::Zilla::Plugin::Test::Compile::VERSION = '1.112400';
 }
 # ABSTRACT: common tests to check syntax of your modules
 
@@ -74,6 +74,8 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 
+
+
 =pod
 
 =head1 NAME
@@ -82,7 +84,7 @@ Dist::Zilla::Plugin::Test::Compile - common tests to check syntax of your module
 
 =head1 VERSION
 
-version 1.112392
+version 1.112400
 
 =head1 SYNOPSIS
 
@@ -166,9 +168,6 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
 
 
 __DATA__

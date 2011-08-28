@@ -3,9 +3,11 @@ abstract: 'common tests to check syntax of your modules'
 author:
   - 'Jerome Quelin'
 build_requires:
+  Dist::Zilla::Tester: 0
   File::Find: 0
   File::Temp: 0
   Module::Build: 0.3601
+  Path::Class: 0
   Test::More: 0.88
 configure_requires:
   Module::Build: 0.3601
@@ -19,10 +21,10 @@ name: Dist-Zilla-Plugin-Test-Compile
 provides:
   Dist::Zilla::Plugin::CompileTests:
     file: lib/Dist/Zilla/Plugin/CompileTests.pm
-    version: 1.112392
+    version: 1.112400
   Dist::Zilla::Plugin::Test::Compile:
     file: lib/Dist/Zilla/Plugin/Test/Compile.pm
-    version: 1.112392
+    version: 1.112400
 requires:
   Data::Section: 0
   Dist::Zilla::File::InMemory: 0
@@ -37,7 +39,7 @@ resources:
   homepage: http://search.cpan.org/dist/Dist-Zilla-Plugin-Test-Compile/
   repository: git://github.com/jquelin/dist-zilla-plugin-test-compile.git
   x_MailingList: http://www.listbox.com/subscribe/?list_id=139292
-version: 1.112392
+version: 1.112400
 x_Dist_Zilla:
   plugins:
     -
@@ -55,7 +57,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::CompileTests
       name: '@JQUELIN/CompileTests'
-      version: 1.110930
+      version: 1.112392
     -
       class: Dist::Zilla::Plugin::HasVersionTests
       name: '@JQUELIN/HasVersionTests'
