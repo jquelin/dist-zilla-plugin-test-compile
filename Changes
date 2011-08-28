@@ -2,6 +2,10 @@ Revision history for Dist::Zilla::Plugin::CompileTests
 
 {{$NEXT}}
 
+1.112400  2011-08-28 13:41:01 Europe/Paris
+ - fix breakage introduced by __END__ markers (randy stauner)
+ - added test suite (randy stauner)
+
 1.112392  2011-08-27 11:56:36 Europe/Paris
  - examples/ updated to use new module name
 
