@@ -89,6 +89,8 @@ This test will find all modules and scripts in your dist, and try to
 compile them one by one. This means it's a bit slower than loading them
 all at once, but it will catch more errors.
 
+We currently only check bin/, script/ and scripts/ for scripts.
+
 =back
 
 
@@ -169,8 +171,10 @@ find(
   'lib',
 );
 
-my @scripts;
-if ( -d 'bin' ) {
+sub _find_scripts {
+    my $dir = shift @_;
+
+    my @found_scripts = ();
     find(
       sub {
         return unless -f;
@@ -182,11 +186,17 @@ if ( -d 'bin' ) {
         };
         my $shebang = <$FH>;
         return unless $shebang =~ /^#!.*?\bperl\b\s*$/;
-        push @scripts, $found;
+        push @found_scripts, $found;
       },
-      'bin',
+      $dir,
     );
+
+    return @found_scripts;
 }
+
+my @scripts;
+do { push @scripts, _find_scripts($_) if -d $_ }
+    for qw{ bin script scripts };
 
 my $plan = scalar(@modules) + scalar(@scripts);
 $plan ? (plan tests => $plan) : (plan skip_all => "no tests to run");
