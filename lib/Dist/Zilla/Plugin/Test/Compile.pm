@@ -11,9 +11,9 @@ with 'Dist::Zilla::Role::FileGatherer';
 
 # -- attributes
 
-has fake_home     => ( is=>'ro', predicate=>'has_fake_home' );
+has fake_home     => ( is=>'ro', isa=>'Bool', default=>0 );
 has skip          => ( is=>'ro', predicate=>'has_skip' ); # skiplist - a regex
-has needs_display => ( is=>'ro', predicate=>'has_needs_display' );
+has needs_display => ( is=>'ro', isa=>'Bool', default=>0 );
 
 # -- public methods
 
@@ -25,13 +25,13 @@ sub gather_files {
         ? sprintf( 'return if $found =~ /%s/;', $self->skip )
         : '# nothing to skip';
 
-    my $home = ( $self->has_fake_home && $self->fake_home )
+    my $home = ( $self->fake_home )
         ? ''
         : '# no fake requested ##';
 
     # Skip all tests if you need a display for this test and $ENV{DISPLAY} is not set
     my $needs_display = '';
-    if ( $self->has_needs_display && $self->needs_display ) {
+    if ( $self->needs_display ) {
         $needs_display = <<'CODE';
 BEGIN {
     if( not $ENV{DISPLAY} and not $^O eq 'MSWin32' ) {
