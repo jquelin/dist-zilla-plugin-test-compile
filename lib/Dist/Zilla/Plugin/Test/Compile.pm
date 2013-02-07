@@ -83,13 +83,13 @@ the following files:
 
 =over 4
 
-=item * t/00-compile.t - a standard test to check syntax of bundled modules
+=item * F<t/00-compile.t> - a standard test to check syntax of bundled modules
 
 This test will find all modules and scripts in your dist, and try to
 compile them one by one. This means it's a bit slower than loading them
 all at once, but it will catch more errors.
 
-We currently only check bin/, script/ and scripts/ for scripts.
+We currently only check F<bin/>, F<script/> and F<scripts/> for scripts.
 
 =back
 
@@ -102,13 +102,13 @@ This plugin accepts the following options:
 match is done against the module name (C<Foo::Bar>), not the file path
 (F<lib/Foo/Bar.pm>).
 
-=item * fake_home: a boolean to indicate whether to fake $ENV{HOME}.
+=item * fake_home: a boolean to indicate whether to fake C<< $ENV{HOME} >>.
 This may be needed if your module unilateraly creates stuff in homedir:
 indeed, some cpantesters will smoke test your dist with a read-only home
 directory. Default to false.
 
 =item * needs_display: a boolean to indicate whether to skip the compile test
-on non-win32 systems when $ENV{DISPLAY} is not set. Default to false.
+on non-Win32 systems when C<< $ENV{DISPLAY} >> is not set. Default to false.
 
 =back
 
