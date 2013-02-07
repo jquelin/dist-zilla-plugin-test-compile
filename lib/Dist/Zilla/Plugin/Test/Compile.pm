@@ -14,6 +14,7 @@ with 'Dist::Zilla::Role::FileGatherer';
 has fake_home     => ( is=>'ro', isa=>'Bool', default=>0 );
 has skip          => ( is=>'ro', predicate=>'has_skip' ); # skiplist - a regex
 has needs_display => ( is=>'ro', isa=>'Bool', default=>0 );
+has bail_out_on_fail => ( is=>'ro', isa=>'Bool', default=>0 );
 
 # -- public methods
 
@@ -42,6 +43,10 @@ BEGIN {
 CODE
     }
 
+    my $bail_out = $self->bail_out_on_fail
+        ? 'BAIL_OUT("Compilation failures") if !Test::More->builder->is_passing;'
+        : '';
+
     require Dist::Zilla::File::InMemory;
 
     for my $file (qw( t/00-compile.t )){
@@ -49,6 +54,7 @@ CODE
         $content =~ s/COMPILETESTS_SKIP/$skip/g;
         $content =~ s/COMPILETESTS_FAKE_HOME/$home/;
         $content =~ s/COMPILETESTS_NEEDS_DISPLAY/$needs_display/;
+        $content =~ s/COMPILETESTS_BAIL_OUT_ON_FAIL/$bail_out/;
 
         $self->add_file( Dist::Zilla::File::InMemory->new(
             name => $file,
@@ -74,6 +80,7 @@ In your dist.ini:
     skip      = Test$
     fake_home = 1
     needs_display = 1
+    bail_out_on_failure = 1
 
 
 =head1 DESCRIPTION
@@ -109,6 +116,9 @@ directory. Default to false.
 
 =item * needs_display: a boolean to indicate whether to skip the compile test
 on non-Win32 systems when C<< $ENV{DISPLAY} >> is not set. Default to false.
+
+=item * bail_out_on_fail: a boolean to indicate whether the test will BAIL_OUT
+of all subsequent tests when compilation failures are encountered. Defaults to false.
 
 =back
 
@@ -217,4 +227,5 @@ $plan ? (plan tests => $plan) : (plan skip_all => "no tests to run");
             script_compiles( $file, "$script script compiles" );
         }
     }
+    COMPILETESTS_BAIL_OUT_ON_FAIL
 }
