@@ -55,6 +55,7 @@ CODE
         $content =~ s/COMPILETESTS_FAKE_HOME/$home/;
         $content =~ s/COMPILETESTS_NEEDS_DISPLAY/$needs_display/;
         $content =~ s/COMPILETESTS_BAIL_OUT_ON_FAIL/$bail_out/;
+        $content =~ s/ +$//gm;
 
         $self->add_file( Dist::Zilla::File::InMemory->new(
             name => $file,
