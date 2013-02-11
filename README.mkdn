@@ -1,0 +1,77 @@
+# NAME
+
+Dist::Zilla::Plugin::Test::Compile - common tests to check syntax of your modules
+
+# VERSION
+
+version 1.112821
+
+# SYNOPSIS
+
+In your dist.ini:
+
+    [Test::Compile]
+    skip      = Test$
+    fake_home = 1
+    needs_display = 1
+    bail_out_on_failure = 1
+
+# DESCRIPTION
+
+This is an extension of [Dist::Zilla::Plugin::InlineFiles](http://search.cpan.org/perldoc?Dist::Zilla::Plugin::InlineFiles), providing
+the following files:
+
+- `t/00-compile.t` - a standard test to check syntax of bundled modules
+
+    This test will find all modules and scripts in your dist, and try to
+    compile them one by one. This means it's a bit slower than loading them
+    all at once, but it will catch more errors.
+
+    We currently only check `bin/`, `script/` and `scripts/` for scripts.
+
+This plugin accepts the following options:
+
+- skip: a regex to skip compile test for modules matching it. The
+match is done against the module name (`Foo::Bar`), not the file path
+(`lib/Foo/Bar.pm`).
+- fake\_home: a boolean to indicate whether to fake `$ENV{HOME}`.
+This may be needed if your module unilateraly creates stuff in homedir:
+indeed, some cpantesters will smoke test your dist with a read-only home
+directory. Default to false.
+- needs\_display: a boolean to indicate whether to skip the compile test
+on non-Win32 systems when `$ENV{DISPLAY}` is not set. Default to false.
+- bail\_out\_on\_fail: a boolean to indicate whether the test will BAIL\_OUT
+of all subsequent tests when compilation failures are encountered. Defaults to false.
+
+# SEE ALSO
+
+[Test::NeedsDisplay](http://search.cpan.org/perldoc?Test::NeedsDisplay)
+
+You can also look for information on this module at:
+
+- AnnoCPAN: Annotated CPAN documentation
+
+    [http://annocpan.org/dist/Dist-Zilla-Plugin-Test-Compile](http://annocpan.org/dist/Dist-Zilla-Plugin-Test-Compile)
+
+- CPAN Ratings
+
+    [http://cpanratings.perl.org/d/Dist-Zilla-Plugin-Test-Compile](http://cpanratings.perl.org/d/Dist-Zilla-Plugin-Test-Compile)
+
+- Open bugs
+
+    [http://rt.cpan.org/NoAuth/Bugs.html?Dist=Dist-Zilla-Plugin-Test-Compile](http://rt.cpan.org/NoAuth/Bugs.html?Dist=Dist-Zilla-Plugin-Test-Compile)
+
+- Git repository
+
+    [http://github.com/jquelin/dist-zilla-plugin-test-compile.git](http://github.com/jquelin/dist-zilla-plugin-test-compile.git).
+
+# AUTHOR
+
+Jerome Quelin
+
+# COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2009 by Jerome Quelin.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
