@@ -4,7 +4,7 @@ Dist::Zilla::Plugin::Test::Compile - common tests to check syntax of your module
 
 # VERSION
 
-version 1.112821
+version 2.000
 
 # SYNOPSIS
 
