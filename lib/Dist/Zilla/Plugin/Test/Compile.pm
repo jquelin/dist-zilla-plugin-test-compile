@@ -81,7 +81,7 @@ In your dist.ini:
     skip      = Test$
     fake_home = 1
     needs_display = 1
-    bail_out_on_failure = 1
+    bail_out_on_fail = 1
 
 
 =head1 DESCRIPTION
