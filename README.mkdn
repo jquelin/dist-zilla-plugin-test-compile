@@ -4,7 +4,7 @@ Dist::Zilla::Plugin::Test::Compile - common tests to check syntax of your module
 
 # VERSION
 
-version 2.000
+version 2.001
 
 # SYNOPSIS
 
@@ -14,7 +14,7 @@ In your dist.ini:
     skip      = Test$
     fake_home = 1
     needs_display = 1
-    bail_out_on_failure = 1
+    bail_out_on_fail = 1
 
 # DESCRIPTION
 
