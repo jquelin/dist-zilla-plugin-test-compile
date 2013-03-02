@@ -14,6 +14,7 @@ with 'Dist::Zilla::Role::FileGatherer';
 has fake_home     => ( is=>'ro', isa=>'Bool', default=>0 );
 has skip          => ( is=>'ro', predicate=>'has_skip' ); # skiplist - a regex
 has needs_display => ( is=>'ro', isa=>'Bool', default=>0 );
+has fail_on_warning => ( is=>'ro', isa=>'Bool', default=>0 );
 has bail_out_on_fail => ( is=>'ro', isa=>'Bool', default=>0 );
 
 # -- public methods
@@ -44,7 +45,12 @@ CODE
     }
 
     my $bail_out = $self->bail_out_on_fail
-        ? 'BAIL_OUT("Compilation failures") if !Test::More->builder->is_passing;'
+        ? 'BAIL_OUT("Compilation problems") if !Test::More->builder->is_passing;'
+        : '';
+
+    my $warning_test_counter = $self->fail_on_warning ? '1' : '0';
+    my $fail_on_warning = $self->fail_on_warning
+        ? q{is(scalar(@warnings), 0, 'no warnings found');}
         : '';
 
     my $test_more_version = $self->bail_out_on_fail ? ' 0.94' : '';
@@ -58,6 +64,8 @@ CODE
         $content =~ s/COMPILETESTS_FAKE_HOME/$home/;
         $content =~ s/COMPILETESTS_NEEDS_DISPLAY/$needs_display/;
         $content =~ s/COMPILETESTS_BAIL_OUT_ON_FAIL/$bail_out/;
+        $content =~ s/COMPILETESTS_NUM_WARNING_TESTS/$warning_test_counter/;
+        $content =~ s/COMPILETESTS_FAIL_ON_WARNING/$fail_on_warning/;
         $content =~ s/ +$//gm;
 
         $self->add_file( Dist::Zilla::File::InMemory->new(
@@ -84,6 +92,7 @@ In your dist.ini:
     skip      = Test$
     fake_home = 1
     needs_display = 1
+    fail_on_warning = 1
     bail_out_on_fail = 1
 
 
@@ -119,7 +128,10 @@ indeed, some cpantesters will smoke test your dist with a read-only home
 directory. Default to false.
 
 =item * needs_display: a boolean to indicate whether to skip the compile test
-on non-Win32 systems when C<< $ENV{DISPLAY} >> is not set. Default to false.
+on non-Win32 systems when C<< $ENV{DISPLAY} >> is not set. Defaults to false.
+
+=item * fail_on_warning: a boolean to indicate whether to add a test for
+warnings during compilation checks. Defaults to false.
 
 =item * bail_out_on_fail: a boolean to indicate whether the test will BAIL_OUT
 of all subsequent tests when compilation failures are encountered. Defaults to false.
@@ -170,6 +182,7 @@ COMPILETESTS_NEEDS_DISPLAY
 
 use File::Find;
 use File::Temp qw{ tempdir };
+use Capture::Tiny qw{ capture };
 
 my @modules;
 find(
@@ -212,15 +225,25 @@ my @scripts;
 do { push @scripts, _find_scripts($_) if -d $_ }
     for qw{ bin script scripts };
 
-my $plan = scalar(@modules) + scalar(@scripts);
+my $plan = scalar(@modules) + scalar(@scripts) + COMPILETESTS_NUM_WARNING_TESTS;
 $plan ? (plan tests => $plan) : (plan skip_all => "no tests to run");
 
 {
     # fake home for cpan-testers
     COMPILETESTS_FAKE_HOME local $ENV{HOME} = tempdir( CLEANUP => 1 );
 
-    like( qx{ $^X -Ilib -e "require $_; print '$_ ok'" }, qr/^\s*$_ ok/s, "$_ loaded ok" )
-        for sort @modules;
+    my @warnings;
+    for my $module (sort @modules)
+    {
+        my ($stdout, $stderr, $exit) = capture {
+            system($^X, '-Ilib', '-e', qq{require $module; print "$module ok"});
+        };
+        like($stdout, qr/^\s*$module ok/s, "$module loaded ok" );
+        warn $stderr if $stderr;
+        push @warnings, $stderr if $stderr;
+    }
+
+    COMPILETESTS_FAIL_ON_WARNING
 
     SKIP: {
         eval "use Test::Script 1.05; 1;";
