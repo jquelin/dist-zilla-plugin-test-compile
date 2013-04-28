@@ -47,10 +47,13 @@ CODE
         ? 'BAIL_OUT("Compilation failures") if !Test::More->builder->is_passing;'
         : '';
 
+    my $test_more_version = $self->bail_out_on_fail ? ' 0.94' : '';
+
     require Dist::Zilla::File::InMemory;
 
     for my $file (qw( t/00-compile.t )){
         my $content = ${$self->section_data($file)};
+        $content =~ s/COMPILETESTS_TESTMORE_VERSION/$test_more_version/g;
         $content =~ s/COMPILETESTS_SKIP/$skip/g;
         $content =~ s/COMPILETESTS_FAKE_HOME/$home/;
         $content =~ s/COMPILETESTS_NEEDS_DISPLAY/$needs_display/;
@@ -161,7 +164,7 @@ ___[ t/00-compile.t ]___
 use strict;
 use warnings;
 
-use Test::More;
+use Test::MoreCOMPILETESTS_TESTMORE_VERSION;
 
 COMPILETESTS_NEEDS_DISPLAY
 
