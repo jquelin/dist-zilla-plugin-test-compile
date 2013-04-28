@@ -1,6 +1,8 @@
 Revision history for Dist::Zilla::Plugin::CompileTests
 
 {{$NEXT}}
+
+2.002     2013-04-28 17:19:00 Europe/Paris
  - require version of Test::More that added is_passing()
    (RT#84904, Karen Etheridge)
 
