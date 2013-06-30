@@ -48,12 +48,11 @@ CODE
         ? 'BAIL_OUT("Compilation problems") if !Test::More->builder->is_passing;'
         : '';
 
-    my $warning_test_counter = $self->fail_on_warning ? '1' : '0';
     my $fail_on_warning = $self->fail_on_warning
         ? q{is(scalar(@warnings), 0, 'no warnings found');}
         : '';
 
-    my $test_more_version = $self->bail_out_on_fail ? ' 0.94' : '';
+    my $test_more_version = $self->bail_out_on_fail ? ' 0.94' : ' 0.88';
 
     require Dist::Zilla::File::InMemory;
 
@@ -64,7 +63,6 @@ CODE
         $content =~ s/COMPILETESTS_FAKE_HOME/$home/;
         $content =~ s/COMPILETESTS_NEEDS_DISPLAY/$needs_display/;
         $content =~ s/COMPILETESTS_BAIL_OUT_ON_FAIL/$bail_out/;
-        $content =~ s/COMPILETESTS_NUM_WARNING_TESTS/$warning_test_counter/;
         $content =~ s/COMPILETESTS_FAIL_ON_WARNING/$fail_on_warning/;
         $content =~ s/ +$//gm;
 
@@ -225,9 +223,6 @@ my @scripts;
 do { push @scripts, _find_scripts($_) if -d $_ }
     for qw{ bin script scripts };
 
-my $plan = scalar(@modules) + scalar(@scripts) + COMPILETESTS_NUM_WARNING_TESTS;
-$plan ? (plan tests => $plan) : (plan skip_all => "no tests to run");
-
 {
     # fake home for cpan-testers
     COMPILETESTS_FAKE_HOME local $ENV{HOME} = tempdir( CLEANUP => 1 );
@@ -256,3 +251,5 @@ $plan ? (plan tests => $plan) : (plan skip_all => "no tests to run");
     }
     COMPILETESTS_BAIL_OUT_ON_FAIL
 }
+
+done_testing;
