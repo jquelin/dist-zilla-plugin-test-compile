@@ -9,11 +9,14 @@ use Moose;
 use Data::Section -setup;
 with 'Dist::Zilla::Role::FileGatherer';
 
+use Moose::Util::TypeConstraints;
+
 # -- attributes
 
 has fake_home     => ( is=>'ro', isa=>'Bool', default=>0 );
 has skip          => ( is=>'ro', predicate=>'has_skip' ); # skiplist - a regex
 has needs_display => ( is=>'ro', isa=>'Bool', default=>0 );
+has fail_on_warning => ( is=>'ro', isa=>enum([qw(none author all)]), default=>'author' );
 has bail_out_on_fail => ( is=>'ro', isa=>'Bool', default=>0 );
 
 # -- public methods
@@ -44,17 +47,27 @@ CODE
     }
 
     my $bail_out = $self->bail_out_on_fail
-        ? 'BAIL_OUT("Compilation failures") if !Test::More->builder->is_passing;'
+        ? 'BAIL_OUT("Compilation problems") if !Test::More->builder->is_passing;'
         : '';
+
+    my $fail_on_warning = $self->fail_on_warning ne 'none'
+        ? q{is(scalar(@warnings), 0, 'no warnings found');}
+        : '';
+    $fail_on_warning = 'if ($ENV{AUTHOR_TESTING} { ' . $fail_on_warning . ' }'
+        if $self->fail_on_warning eq 'author';
+
+    my $test_more_version = $self->bail_out_on_fail ? ' 0.94' : ' 0.88';
 
     require Dist::Zilla::File::InMemory;
 
     for my $file (qw( t/00-compile.t )){
         my $content = ${$self->section_data($file)};
+        $content =~ s/COMPILETESTS_TESTMORE_VERSION/$test_more_version/g;
         $content =~ s/COMPILETESTS_SKIP/$skip/g;
         $content =~ s/COMPILETESTS_FAKE_HOME/$home/;
         $content =~ s/COMPILETESTS_NEEDS_DISPLAY/$needs_display/;
         $content =~ s/COMPILETESTS_BAIL_OUT_ON_FAIL/$bail_out/;
+        $content =~ s/COMPILETESTS_FAIL_ON_WARNING/$fail_on_warning/;
         $content =~ s/ +$//gm;
 
         $self->add_file( Dist::Zilla::File::InMemory->new(
@@ -81,6 +94,7 @@ In your dist.ini:
     skip      = Test$
     fake_home = 1
     needs_display = 1
+    fail_on_warning = 1
     bail_out_on_fail = 1
 
 
@@ -116,7 +130,23 @@ indeed, some cpantesters will smoke test your dist with a read-only home
 directory. Default to false.
 
 =item * needs_display: a boolean to indicate whether to skip the compile test
-on non-Win32 systems when C<< $ENV{DISPLAY} >> is not set. Default to false.
+on non-Win32 systems when C<< $ENV{DISPLAY} >> is not set. Defaults to false.
+
+=item * fail_on_warning: a string to indicate when to add a test for
+warnings during compilation checks. Possible values are:
+
+=over 4
+
+=item * none: do not check for warnings
+
+=item * author: check for warnings only when AUTHOR_TESTING is set
+(default, and recommended)
+
+=item * all: always test for warnings (not recommended, as this can prevent
+installation of modules when upstream dependencies exhibit warnings in a new
+Perl release)
+
+=back
 
 =item * bail_out_on_fail: a boolean to indicate whether the test will BAIL_OUT
 of all subsequent tests when compilation failures are encountered. Defaults to false.
@@ -161,12 +191,13 @@ ___[ t/00-compile.t ]___
 use strict;
 use warnings;
 
-use Test::More;
+use Test::MoreCOMPILETESTS_TESTMORE_VERSION;
 
 COMPILETESTS_NEEDS_DISPLAY
 
 use File::Find;
 use File::Temp qw{ tempdir };
+use Capture::Tiny qw{ capture };
 
 my @modules;
 find(
@@ -209,15 +240,22 @@ my @scripts;
 do { push @scripts, _find_scripts($_) if -d $_ }
     for qw{ bin script scripts };
 
-my $plan = scalar(@modules) + scalar(@scripts);
-$plan ? (plan tests => $plan) : (plan skip_all => "no tests to run");
-
 {
     # fake home for cpan-testers
     COMPILETESTS_FAKE_HOME local $ENV{HOME} = tempdir( CLEANUP => 1 );
 
-    like( qx{ $^X -Ilib -e "require $_; print '$_ ok'" }, qr/^\s*$_ ok/s, "$_ loaded ok" )
-        for sort @modules;
+    my @warnings;
+    for my $module (sort @modules)
+    {
+        my ($stdout, $stderr, $exit) = capture {
+            system($^X, '-Ilib', '-e', qq{require $module; print "$module ok"});
+        };
+        like($stdout, qr/^\s*$module ok/s, "$module loaded ok" );
+        warn $stderr if $stderr;
+        push @warnings, $stderr if $stderr;
+    }
+
+    COMPILETESTS_FAIL_ON_WARNING
 
     SKIP: {
         eval "use Test::Script 1.05; 1;";
@@ -230,3 +268,5 @@ $plan ? (plan tests => $plan) : (plan skip_all => "no tests to run");
     }
     COMPILETESTS_BAIL_OUT_ON_FAIL
 }
+
+done_testing;

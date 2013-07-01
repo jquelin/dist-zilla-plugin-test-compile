@@ -1,6 +1,11 @@
 Revision history for Dist::Zilla::Plugin::CompileTests
 
 {{$NEXT}}
+ - new fail_on_warning option (Karen Etheridge)
+
+2.002     2013-04-28 17:19:00 Europe/Paris
+ - require version of Test::More that added is_passing()
+   (RT#84904, Karen Etheridge)
 
 2.001     2013-02-12 13:03:37 Europe/Paris
  - fix EOL in generated test (Olivier Mengué)
