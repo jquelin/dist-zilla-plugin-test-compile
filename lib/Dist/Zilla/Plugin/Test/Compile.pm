@@ -9,12 +9,14 @@ use Moose;
 use Data::Section -setup;
 with 'Dist::Zilla::Role::FileGatherer';
 
+use Moose::Util::TypeConstraints;
+
 # -- attributes
 
 has fake_home     => ( is=>'ro', isa=>'Bool', default=>0 );
 has skip          => ( is=>'ro', predicate=>'has_skip' ); # skiplist - a regex
 has needs_display => ( is=>'ro', isa=>'Bool', default=>0 );
-has fail_on_warning => ( is=>'ro', isa=>'Bool', default=>0 );
+has fail_on_warning => ( is=>'ro', isa=>enum([qw(none author all)]), default=>'author' );
 has bail_out_on_fail => ( is=>'ro', isa=>'Bool', default=>0 );
 
 # -- public methods
@@ -48,9 +50,11 @@ CODE
         ? 'BAIL_OUT("Compilation problems") if !Test::More->builder->is_passing;'
         : '';
 
-    my $fail_on_warning = $self->fail_on_warning
+    my $fail_on_warning = $self->fail_on_warning ne 'none'
         ? q{is(scalar(@warnings), 0, 'no warnings found');}
         : '';
+    $fail_on_warning = 'if ($ENV{AUTHOR_TESTING} { ' . $fail_on_warning . ' }'
+        if $self->fail_on_warning eq 'author';
 
     my $test_more_version = $self->bail_out_on_fail ? ' 0.94' : ' 0.88';
 
@@ -128,8 +132,21 @@ directory. Default to false.
 =item * needs_display: a boolean to indicate whether to skip the compile test
 on non-Win32 systems when C<< $ENV{DISPLAY} >> is not set. Defaults to false.
 
-=item * fail_on_warning: a boolean to indicate whether to add a test for
-warnings during compilation checks. Defaults to false.
+=item * fail_on_warning: a string to indicate when to add a test for
+warnings during compilation checks. Possible values are:
+
+=over 4
+
+=item * none: do not check for warnings
+
+=item * author: check for warnings only when AUTHOR_TESTING is set
+(default, and recommended)
+
+=item * all: always test for warnings (not recommended, as this can prevent
+installation of modules when upstream dependencies exhibit warnings in a new
+Perl release)
+
+=back
 
 =item * bail_out_on_fail: a boolean to indicate whether the test will BAIL_OUT
 of all subsequent tests when compilation failures are encountered. Defaults to false.
